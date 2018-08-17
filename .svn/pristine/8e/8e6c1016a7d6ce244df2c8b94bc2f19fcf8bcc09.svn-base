@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="GBK"?>
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"  
+    xmlns:context="http://www.springframework.org/schema/context"  
+    xmlns:mvc="http://www.springframework.org/schema/mvc"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans    http://www.springframework.org/schema/beans/spring-beans-4.3.xsd      
+http://www.springframework.org/schema/context    http://www.springframework.org/schema/context/spring-context-4.3.xsd   
+http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd"  
+    default-lazy-init="true">  
+  
+    <!-- 启用注解 -->  
+    <context:annotation-config />  
+  
+    <!-- 扫描Controller -->  
+    <context:component-scan base-package="com.test.service" />
+    <!-- 完成请求与注解的POJO映射 -->  
+    <bean  
+        class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />  
+    <bean  
+        class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />  
+          
+          
+    <bean id="defaultViewResolver"  
+        class="org.springframework.web.servlet.view.InternalResourceViewResolver"  
+        p:order="3">  
+        <property name="viewClass"  
+            value="org.springframework.web.servlet.view.JstlView" />  
+        <property name="contentType" value="text/html" />  
+        <property name="prefix" value="/WEB-INF/" />  
+        <property name="suffix" value=".jsp" />  
+    </bean>
+    <!-- 定时器 -->
+	<!-- 要调用的工作类 -->
+	<!-- <bean id="quartzJob" class="com.test.util.QuartzJob">
+	</bean>
+	定义调用对象和调用对象的方法
+	<bean id="jobtask"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		调用的类
+		<property name="targetObject">
+			<ref bean="quartzJob" />
+		</property>
+		调用类中的方法
+		<property name="targetMethod">
+			<value>work</value>
+		</property>
+	</bean>
+	定义触发时间
+	<bean id="doTime" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="jobtask" />
+		</property>
+		cron表达式
+		<property name="cronExpression">
+			每天凌晨0点10分触发 <value>0 10 0 * * ?</value>
+			每隔2分钟执行1次，为了测试
+			<value>0 0/3 * * * ?</value>
+			<value>0 10 0 * * ?</value>
+		</property>
+	</bean>
+	总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序
+	<bean id="startQuertz" lazy-init="false" autowire="no"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="doTime" />
+			</list>
+		</property>
+	</bean> -->
+</beans>
