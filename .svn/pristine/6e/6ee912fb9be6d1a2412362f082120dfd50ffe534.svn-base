@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.dao.SelectRecordMapper">
+  <select id="selectRecord" parameterType="com.test.entity.Users" resultType="com.test.entity.Integral">
+    select userName,updateTime,integral,ex1,ex2,ex3
+    from integral where userName = #{userName,jdbcType=INTEGER}
+    <if test="ex3 == 123 ">
+       and (ex1 = 1 or ex1 = 2 or ex1 =3)
+    </if>
+    <if test="ex3 == 4">
+       and ex1 = 4
+    </if>
+    <if test="ex1!=null">
+       and updateTime BETWEEN #{ex1} and #{ex2}
+    </if>
+    
+  </select>
+</mapper>

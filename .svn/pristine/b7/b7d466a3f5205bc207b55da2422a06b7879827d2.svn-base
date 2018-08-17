@@ -1,0 +1,22 @@
+package com.test.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.test.dao.SelectRecordMapper;
+import com.test.entity.Integral;
+import com.test.entity.Users;
+
+@Service
+public class SelectRecordServiceImpl implements SelectRecordService {
+	
+	@Autowired
+	SelectRecordMapper selectRecordDao;
+
+	public List<Integral> selectRecord(Users users) {
+		return selectRecordDao.selectRecord(users);
+	}
+
+}
