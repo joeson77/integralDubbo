@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.dao.AddUserMapper">
+  <sql id="Base_Column_List">
+    id, userName, userPwd, userTel, userIntergral, userState, ex1, ex2
+  </sql>
+  <insert id="registerUser" parameterType="com.test.entity.Users" >
+    insert into users (userName, userPwd, userTel)
+    values(#{userName},#{userPwd},#{userTel})
+  </insert>
+</mapper>
