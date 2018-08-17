@@ -1,0 +1,19 @@
+<?xml version="1.0"?>  
+<!DOCTYPE HTML PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0 //EN" "http://www.wapforun.org/DTD/xhtml-mobile10.dtd">  
+<html>  
+    <head>
+    <meta charset="UTF-8">
+    <title>$key1</title>
+    </head>
+    <body> 
+    		
+    		<h1>$title</h1>
+    		<br><br><br>
+    		<span><i>$time</i></span>
+
+    		
+    		
+        $content
+          
+    </body>  
+</html>
