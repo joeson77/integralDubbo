@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cam.dao.DonationMapper">
+	<resultMap id="BaseResultMap" type="com.cam.pojo.Donation">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="username" jdbcType="VARCHAR" property="username" />
+		<result column="title" jdbcType="VARCHAR" property="title" />
+		<result column="type" jdbcType="VARCHAR" property="type" />
+		<result column="apply_time" jdbcType="TIMESTAMP" property="applyTime" />
+		<result column="credit_time" jdbcType="TIMESTAMP" property="creditTime" />
+		<result column="status" jdbcType="INTEGER" property="status" />
+		<result column="description" jdbcType="VARCHAR" property="description" />
+		<result column="ex1" jdbcType="VARCHAR" property="ex1" />
+		<result column="ex2" jdbcType="VARCHAR" property="ex2" />
+		<result column="ex3" jdbcType="VARCHAR" property="ex3" />
+		<result column="tel_phone" jdbcType="VARCHAR" property="telPhone" />
+		<result column="number" jdbcType="INTEGER" property="number" />
+		<result column="address" jdbcType="VARCHAR" property="address" />
+		<result column="img_url" jdbcType="LONGVARCHAR" property="imgUrl" />
+	</resultMap>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		donation
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" keyProperty="id" parameterType="com.cam.pojo.Donation"
+		useGeneratedKeys="true">
+		insert into donation (username, title, type,
+		apply_time, credit_time, status,
+		description, ex1, ex2,
+		ex3, tel_phone,
+		number,
+		address, img_url)
+		values (#{username,jdbcType=VARCHAR},
+		#{title,jdbcType=VARCHAR},
+		#{type,jdbcType=VARCHAR},
+		#{applyTime,jdbcType=TIMESTAMP}, #{creditTime,jdbcType=TIMESTAMP},
+		#{status,jdbcType=INTEGER},
+		#{description,jdbcType=VARCHAR},
+		#{ex1,jdbcType=VARCHAR},
+		#{ex2,jdbcType=VARCHAR},
+		#{ex3,jdbcType=VARCHAR}, #{telPhone,jdbcType=VARCHAR},
+		#{number,jdbcType=INTEGER},
+		#{address,jdbcType=VARCHAR},
+		#{imgUrl,jdbcType=LONGVARCHAR})
+	</insert>
+	<update id="updateByPrimaryKey" parameterType="com.cam.pojo.Donation">
+		update donation
+		set username = #{username,jdbcType=VARCHAR},
+		title =
+		#{title,jdbcType=VARCHAR},
+		type = #{type,jdbcType=VARCHAR},
+		apply_time =
+		#{applyTime,jdbcType=TIMESTAMP},
+		credit_time =
+		#{creditTime,jdbcType=TIMESTAMP},
+		status = #{status,jdbcType=INTEGER},
+		description = #{description,jdbcType=VARCHAR},
+		ex1 =
+		#{ex1,jdbcType=VARCHAR},
+		ex2 = #{ex2,jdbcType=VARCHAR},
+		ex3 =
+		#{ex3,jdbcType=VARCHAR},
+		tel_phone = #{telPhone,jdbcType=VARCHAR},
+		number = #{number,jdbcType=INTEGER},
+		address =
+		#{address,jdbcType=VARCHAR},
+		img_url = #{imgUrl,jdbcType=LONGVARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select id, username, title, type, apply_time, credit_time,
+		status,
+		description, ex1,
+		ex2, ex3, tel_phone, number, address, img_url
+		from donation
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="selectAll" resultMap="BaseResultMap">
+		select id, username, title,
+		type, apply_time, credit_time, status,
+		description, ex1,
+		ex2, ex3,
+		tel_phone, number, address, img_url
+		from donation
+	</select>
+
+	<select id="indexInit" resultMap="BaseResultMap">
+		select id, username, title,
+		type, apply_time, credit_time, status,
+		description, ex1,
+		ex2,
+		ex3,tel_phone, number, address,
+		img_url
+		from donation
+		order by apply_time
+		DESC
+		limit 8
+	</select>
+
+	<sql id="base_where">
+		<where>
+			<if test="username!=null">
+				AND username=#{username}
+			</if>
+			<if test="title!=null">
+				AND title like concat('%',#{title},'%')
+			</if>
+			<if test="status!=null and status&gt;-1">
+				AND status=#{status}
+			</if>
+			<if test="type!=null and type!='全部'">
+				And type=#{type}
+			</if>
+			<if test="beginDate!=null">
+				And apply_time &gt;= #{beginDate}
+			</if>
+			<if test="endDate!=null">
+				And apply_time &lt;= #{endDate}
+			</if>
+		</where>
+	</sql>
+
+	<select id="queryForCount" resultType="int">
+		select count(id) from donation
+		<include refid="base_where" />
+	</select>
+
+	<select id="query" resultMap="BaseResultMap">
+		select id, username, title, type, apply_time, credit_time, status,
+		description, ex1,
+		ex2, ex3,tel_phone, number, address,
+		img_url
+		from
+		donation
+		<include refid="base_where" />
+		order by apply_time DESC
+		<if test="pageSize&gt;-1">
+			LIMIT #{start},#{pageSize}
+		</if>
+	</select>
+
+	<select id="selectByType" resultMap="BaseResultMap"
+		parameterType="String">
+		select id, username, title, type, apply_time, credit_time, status,
+		description, ex1,
+		ex2, ex3,tel_phone, number, address,
+		img_url
+		from
+		donation
+		where type=#{type}
+		order by apply_time DESC
+		limit 8
+	</select>
+</mapper>

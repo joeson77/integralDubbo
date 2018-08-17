@@ -1,0 +1,54 @@
+.page {
+	list-style: none;
+	width: 50%;
+	height: 100%;
+	padding: 0;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.page>li {
+	float: left;
+	padding: 5px 10px;
+	cursor: pointer;
+}
+
+.page .pageItem {
+	border: solid thin #DDDDDD;
+	margin: 5px;
+}
+
+.page .pageItemActive {
+	border: solid thin #DE8611;;
+	margin: 5px;
+	background-color: #DE8611;;
+	color: white;
+}
+
+.page .pageItem:hover {
+	border: solid thin #DE8611;;
+	background-color: #DE8611;;
+	color: white;
+}
+
+.page .pageItemDisable {
+	border: solid thin #DDDDDD;
+	margin: 5px;
+	background-color: #DDDDDD;
+}
+
+#page-bar {
+	width: 100%;
+	height: 50px;
+	margin: 0 auto;
+	margin-top: 30px;
+	clear: both;
+}
+
+#page-container {
+	width: 75%;
+	height: 100%;
+	margin: 0 auto;
+	text-align: center;
+}
+

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cam.dao.UsersMapper" >
+  <resultMap id="BaseResultMap" type="com.cam.pojo.Users" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="userName" property="username" jdbcType="VARCHAR" />
+    <result column="userPwd" property="userpwd" jdbcType="VARCHAR" />
+    <result column="userTel" property="usertel" jdbcType="VARCHAR" />
+    <result column="userIntegral" property="userintegral" jdbcType="INTEGER" />
+    <result column="userState" property="userstate" jdbcType="INTEGER" />
+    <result column="ex1" property="ex1" jdbcType="VARCHAR" />
+    <result column="ex2" property="ex2" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from users
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cam.pojo.Users" useGeneratedKeys="true" keyProperty="id" >
+    insert into users (userName, userPwd, userTel, 
+      userIntegral, userState, ex1, 
+      ex2)
+    values (#{username,jdbcType=VARCHAR}, #{userpwd,jdbcType=VARCHAR}, #{usertel,jdbcType=VARCHAR}, 
+      #{userintegral,jdbcType=INTEGER}, #{userstate,jdbcType=INTEGER}, #{ex1,jdbcType=VARCHAR}, 
+      #{ex2,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.cam.pojo.Users" >
+    update users
+    set userName = #{username,jdbcType=VARCHAR},
+      userPwd = #{userpwd,jdbcType=VARCHAR},
+      userTel = #{usertel,jdbcType=VARCHAR},
+      userIntegral = #{userintegral,jdbcType=INTEGER},
+      userState = #{userstate,jdbcType=INTEGER},
+      ex1 = #{ex1,jdbcType=VARCHAR},
+      ex2 = #{ex2,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, userName, userPwd, userTel, userIntegral, userState, ex1, ex2
+    from users
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, userName, userPwd, userTel, userIntegral, userState, ex1, ex2
+    from users
+  </select>
+  <select id="selectUserByUsername" resultMap="BaseResultMap" parameterType="String" >
+    select id, userName, userPwd, userTel, userIntegral, userState, ex1, ex2
+    from users
+    where userName = #{username}
+  </select>
+</mapper>
