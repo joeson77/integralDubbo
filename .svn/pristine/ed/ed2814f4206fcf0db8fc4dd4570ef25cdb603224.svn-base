@@ -1,0 +1,21 @@
+package com.test.dao;
+
+import java.util.List;
+
+import com.test.entity.PublicBenefit;
+
+public interface PublicBenefitMapper {
+    int deleteByPrimaryKey(Integer activeId);
+
+    int insert(PublicBenefit record);
+
+    int insertSelective(PublicBenefit record);
+
+    PublicBenefit selectByPrimaryKey(Integer activeId);
+
+    int updateByPrimaryKeySelective(PublicBenefit record);
+
+    int updateByPrimaryKey(PublicBenefit record);
+    
+    List<PublicBenefit> selectAllActive();
+}

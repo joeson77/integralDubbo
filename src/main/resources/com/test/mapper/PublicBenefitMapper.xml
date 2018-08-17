@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.dao.PublicBenefitMapper">
+  <resultMap id="BaseResultMap" type="com.test.entity.PublicBenefit">
+    <id column="activeId" jdbcType="INTEGER" property="activeId" />
+    <result column="activeName" jdbcType="VARCHAR" property="activeName" />
+    <result column="startTime" jdbcType="DATE" property="startTime" />
+    <result column="endTime" jdbcType="DATE" property="endTime" />
+    <result column="activeType" jdbcType="INTEGER" property="activeType" />
+    <result column="activeNeedIntegral" jdbcType="INTEGER" property="activeNeedIntegral" />
+    <result column="activeStatus" jdbcType="INTEGER" property="activeStatus" />
+    <result column="havingIntegral" jdbcType="INTEGER" property="havingIntegral" />
+    <result column="ex1" jdbcType="VARCHAR" property="ex1" />
+    <result column="ex2" jdbcType="VARCHAR" property="ex2" />
+    <result column="ex3" jdbcType="VARCHAR" property="ex3" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    activeId, activeName, startTime, endTime, activeType, activeNeedIntegral, activeStatus, havingIntegral,
+    ex1, ex2, ex3
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from publicBenefit
+    where activeId = #{activeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from publicBenefit
+    where activeId = #{activeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.test.entity.PublicBenefit">
+    insert into publicBenefit (activeId, activeName, startTime, 
+      endTime, activeType, activeNeedIntegral, 
+      activeStatus, ex1, ex2, 
+      ex3)
+    values (#{activeId,jdbcType=INTEGER}, #{activeName,jdbcType=VARCHAR}, #{startTime,jdbcType=DATE}, 
+      #{endTime,jdbcType=DATE}, #{activeType,jdbcType=INTEGER}, #{activeNeedIntegral,jdbcType=INTEGER}, 
+      #{activeStatus,jdbcType=INTEGER}, #{ex1,jdbcType=VARCHAR}, #{ex2,jdbcType=VARCHAR}, 
+      #{ex3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.test.entity.PublicBenefit">
+    insert into publicBenefit
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="activeId != null">
+        activeId,
+      </if>
+      <if test="activeName != null">
+        activeName,
+      </if>
+      <if test="startTime != null">
+        startTime,
+      </if>
+      <if test="endTime != null">
+        endTime,
+      </if>
+      <if test="activeType != null">
+        activeType,
+      </if>
+      <if test="activeNeedIntegral != null">
+        activeNeedIntegral,
+      </if>
+      <if test="activeStatus != null">
+        activeStatus,
+      </if>
+      <if test="ex1 != null">
+        ex1,
+      </if>
+      <if test="ex2 != null">
+        ex2,
+      </if>
+      <if test="ex3 != null">
+        ex3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="activeId != null">
+        #{activeId,jdbcType=INTEGER},
+      </if>
+      <if test="activeName != null">
+        #{activeName,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=DATE},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=DATE},
+      </if>
+      <if test="activeType != null">
+        #{activeType,jdbcType=INTEGER},
+      </if>
+      <if test="activeNeedIntegral != null">
+        #{activeNeedIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="activeStatus != null">
+        #{activeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="ex1 != null">
+        #{ex1,jdbcType=VARCHAR},
+      </if>
+      <if test="ex2 != null">
+        #{ex2,jdbcType=VARCHAR},
+      </if>
+      <if test="ex3 != null">
+        #{ex3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.test.entity.PublicBenefit">
+    update publicBenefit
+    <set>
+      <if test="activeName != null">
+        activeName = #{activeName,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        startTime = #{startTime,jdbcType=DATE},
+      </if>
+      <if test="endTime != null">
+        endTime = #{endTime,jdbcType=DATE},
+      </if>
+      <if test="activeType != null">
+        activeType = #{activeType,jdbcType=INTEGER},
+      </if>
+      <if test="activeNeedIntegral != null">
+        activeNeedIntegral = #{activeNeedIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="activeStatus != null">
+        activeStatus = #{activeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="ex1 != null">
+        ex1 = #{ex1,jdbcType=VARCHAR},
+      </if>
+      <if test="ex2 != null">
+        ex2 = #{ex2,jdbcType=VARCHAR},
+      </if>
+      <if test="ex3 != null">
+        ex3 = #{ex3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where activeId = #{activeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.test.entity.PublicBenefit">
+    update publicBenefit
+    set activeName = #{activeName,jdbcType=VARCHAR},
+      startTime = #{startTime,jdbcType=DATE},
+      endTime = #{endTime,jdbcType=DATE},
+      activeType = #{activeType,jdbcType=INTEGER},
+      activeNeedIntegral = #{activeNeedIntegral,jdbcType=INTEGER},
+      activeStatus = #{activeStatus,jdbcType=INTEGER},
+      ex1 = #{ex1,jdbcType=VARCHAR},
+      ex2 = #{ex2,jdbcType=VARCHAR},
+      ex3 = #{ex3,jdbcType=VARCHAR}
+    where activeId = #{activeId,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllActive" resultType="com.test.entity.PublicBenefit">
+  	select activeId, activeName, startTime, endTime, activeType, activeNeedIntegral, activeStatus, havingIntegral,
+    ex1, ex2, ex3 from publicBenefit
+  </select>
+  
+  <select id="selectUserInfo" resultType="com.test.entity.Users">
+  	select id,userName,userPwd,userTel,userIntegral,userState,ex1,ex2 from users where userName = #{0}
+  </select>
+  
+  <update id="updateHaving">
+  	update publicBenefit set havingIntegral = (havingIntegral + #{1}) where activeId = #{0}
+  </update>
+  
+  <update id="updateSessionID">
+  	update userIP set serverOne = #{1} where userName = #{0}
+  </update>
+  
+  <select id="selectSessionID" resultType="com.test.entity.UserIP">
+  	select userName userName, serverOne serverOne from userIP where userStatue = 1
+  </select>
+  
+  <select id="selectActiveStatue" resultType="java.lang.Integer">
+  	select activeStatus from publicBenefit where activeId = #{0}
+  </select>
+</mapper>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/mvc 
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	<!-- 设置使用注解的类所在的jar包 -->
+	<context:component-scan base-package="com.test.controller" />
+	<context:component-scan base-package="com.test.service" />
+	<!-- 注册HandlerMapping和HandlerAdapter组件 -->
+	<mvc:annotation-driven />
+	
+	<!-- <mvc:interceptors>
+    		<mvc:interceptor> -->
+  			<!-- 拦截所有的请求，这个必须写在前面，也就是写在【不拦截】的上面 -->
+        		<!-- <mvc:mapping path="/index.do" />
+        		<bean class="com.test.filter.SSOFilter"/>
+    		</mvc:interceptor>
+  	</mvc:interceptors> -->
+	
+	<!-- 对静态资源文件的访问 支持访问WEB-INF目录 -->
+	<mvc:default-servlet-handler />
+	<!-- 对转向页面的路径解析。prefix:前缀,suffix:后缀 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		p:prefix="/WEB-INF/" p:suffix=".jsp" />
+		
+	<!-- 定时器 -->
+	<!-- 要调用的工作类 -->
+	<bean id="quartzJob" class="com.test.util.QuartzJob">
+	</bean>
+	<!-- 定义调用对象和调用对象的方法 -->
+	<bean id="jobtask"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<!-- 调用的类 -->
+		<property name="targetObject">
+			<ref bean="quartzJob" />
+		</property>
+		<!-- 调用类中的方法 -->
+		<property name="targetMethod">
+			<value>work</value>
+		</property>
+	</bean>
+	<!-- 定义触发时间 -->
+	<bean id="doTime" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="jobtask" />
+		</property>
+		<!-- cron表达式 -->
+		<property name="cronExpression">
+			<!-- 每天凌晨0点10分触发 <value>0 10 0 * * ?</value> -->
+			<!-- 每隔2分钟执行1次，为了测试 -->
+			<!-- <value>0 0/1 * * * ?</value> -->
+			<!-- 每5秒执行一次 -->
+			<value>*/10 * * * * ?</value>
+			<!-- <value>0 10 0 * * ?</value> -->
+		</property>
+	</bean>
+	<!-- 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序 -->
+	<bean id="startQuertz" lazy-init="false" autowire="no"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="doTime" />
+			</list>
+		</property>
+		<property name="quartzProperties">
+			<props>
+				<!-- 主要是这个参数 -->
+				<prop key="org.quartz.scheduler.skipUpdateCheck">true</prop>
+			</props>
+		</property>
+	</bean>
+
+</beans>

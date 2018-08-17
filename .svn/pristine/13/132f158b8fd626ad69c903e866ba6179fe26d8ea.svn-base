@@ -1,0 +1,66 @@
+.center{
+	width:100%;
+	height:700px;
+}
+.content-img{
+	width:95%;
+	height:70%;
+	margin:0 auto;
+	box-shadow: 5px 5px 5px #888888;
+}
+.content-img:hover{
+	box-shadow: 5px 5px 5px #888888;
+}
+.content-text{
+	width:95%;
+	height:25%;
+	padding-top:5%;
+	margin:0 auto;
+}
+.progressBar {
+
+	width: 80%;
+
+	height: 10px;
+
+	margin: 0 auto;
+	
+	background-color: #ccc;
+
+	-webkit-border-radius: 2em;
+
+	-moz-border-radius: 2em;
+
+	border-radius: 2em;
+
+}
+
+.progressBar_Track {
+
+	width: 200px;
+
+	height: 10px;
+
+	background-color: #ff4400;
+
+	-webkit-border-radius: 2em;
+
+	-moz-border-radius: 2em;
+
+	border-radius: 2em;
+
+}
+.center-content{
+	width:95%;
+	margin:0 auto;
+}
+.center-content-item{
+	margin-top:40px;
+	width:33%;
+	height:300px;
+	float:left;
+}
+
+
+
+

@@ -1,0 +1,183 @@
+<<<<<<< .mine
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+=======
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+>>>>>>> .r412
+<!--A Design by W3layouts 
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html>
+<head>
+<title>我们的行动</title>
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="js/jquery.min.js"></script>
+<script src="layer/layer.js"></script>
+<!-- Custom Theme files -->
+<!--theme-style-->
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />	
+<link href="css/weDo.css" rel="stylesheet" type="text/css" media="all" />
+<link href="layer/theme/default/layer.css" rel="stylesheet" type="text/css" media="all" />		
+<!--//theme-style-->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!--fonts-->
+<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic,700' rel='stylesheet' type='text/css'>
+<!--//fonts-->
+</head>
+<body> 
+<!--header-->
+	<div class="banner-in">
+		<div class="container">
+			<h6>首页 / <span>我们的行动</span></h6>
+		</div>
+	</div>
+	  <!--header-->
+		<div class="header">
+			<div class="container">			
+				<div class="logo">
+					<a href="index.html"><img src="images/logo.png" alt=" " /></a>
+				</div>
+				<div class="top-nav">
+					<span class="menu"> </span>
+					<ul>
+						<li><a href="index.jsp" class="scroll">首页 </a></li>
+						<li class="active" ><a href="weDo.do" class="scroll">我们的行动  </a></li>
+						<li><a href="404.html" class="scroll">关于我们</a></li>
+						<li><a href="gallery.html" class="scroll">动态新闻</a></li>
+						<li><a href="blog.html" class="scroll">联系我们</a></li>
+						<li><a href="contact.html" class="scroll">登录</a></li>
+					</ul>
+					<!--script-->
+				<script>
+					$("span.menu").click(function(){
+						$(".top-nav ul").slideToggle(500, function(){
+						});
+					});
+			</script>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	<!---->
+	<!--content-->
+	<div class="center">
+		<div class='center-content'>
+			<c:forEach items='${listActive}' var='publicBenefit' >
+				<div class='center-content-item'>
+					<div class='content-img' onclick='fun(${publicBenefit.activeId})'>${publicBenefit.activeName}</div>
+					<div class='content-text'>
+						<div class="progressBar">
+            				<div class="progressBar_Track"></div>
+         				</div>
+          				<p class='progressBar-text' style="text-align:center;">${publicBenefit.havingIntegral}/${publicBenefit.activeNeedIntegral}</p>
+					</div>
+				</div>
+			</c:forEach>
+		</div>
+	</div>
+	<!--footer-->
+	<div class="footer">
+		<div class="container">
+			<span class="drop"> </span>
+			<p>Clarity <span>38 mirus lorem 1230</span> Newyork, 2587-4577</p>
+				<p class="footer-class">Design by <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
+				<ul class="social-icons">
+					<li><a href="#"><span> </span> </a></li>
+					<li class="twitter"><a href="#"><span> </span></a></li>
+					<li class="gmail"><a href="#"><span> </span> </a></li>
+					<li class="print"><a href="#"><span> </span> </a></li>
+				</ul>
+		</div>	
+	</div>
+	<div id='details' style="display:none">
+		<div style='width:50%;height:200px;margin:0 auto;background:black'></div>
+		<div style='width:90%;height:50px;line-height:25px;margin:0 auto;background:red'>
+			<span style='font-size:18px;color:orange;font-weight:bold;'>活动名称：</span><p id='activeName' style=''></p>
+		</div>
+		<div style='width:90%;height:100px;margin:0 auto;background:red'>
+			<span style='font-size:18px;color:orange;font-weight:bold;'>活动描述：</span><p id='activeDesc' style=''>捐赠贫困山区捐赠贫困山区捐赠贫困山区捐赠贫困山区</p>
+		</div>
+		<div style='width:90%;height:45px;line-height:40px;margin:0 auto;background:green;text-align:center'>
+			<button style='border:1px solid orange;background:white;color:orange' id='donationBtn'>我要捐献</button>
+		</div>
+	</div>
+	<div id="te" style="display:none">
+		<div style='width:100%;height:40px;line-height:30px;margin-top:10px;text-align:center'>
+			<input type='text' id='donationNum' placeholder='请输入捐赠积分数'/><br>
+		</div>
+		<div style='width:100%;height:30px;text-align:center'>
+			<button style='border:1px solid orange;background:white;color:orange' id='yesDonation' onclick='funn()'>确认捐献</button>
+		</div>
+		
+	</div>
+</body>
+<script type="text/javascript">
+
+$(document).ready(function (e) {
+   
+   $('.content-text').each(function(){
+   		var text=$(this).children("p.progressBar-text").text();
+   		var arr=text.split('/');
+   		var haveNum=parseInt(arr[0]);
+   		var needNum=parseInt(arr[1]);
+   	    var mWidth = haveNum / needNum * $(this).children(".progressBar").width() + "px";
+ 	    $(this).find(".progressBar_Track").css("width", mWidth);
+   });
+
+});
+function fun(id){
+	console.log(id);
+	$.post("getDetails.do",{'activeId':id}, function(data) {
+		  console.log(data);
+		  var publicBenefit=data.publicBenefit;
+		  $("#activeName").html(publicBenefit.activeName);
+		 
+		  layer.open({
+			  type: 1,
+			  area: ['700px', '450px'],
+			  fixed: false, //不固定
+			  maxmin: true,
+			  content: $("#details")
+		  });
+	});
+}
+function fun2(){
+	var n=$(".num").val;
+	alert(n);
+}
+$("#donationBtn").click(function(){
+	layer.open({
+		 type: 1,
+		  area: ['300px', '150px'],
+		  fixed: false, //不固定
+		  content:$("#te")
+		});
+});
+function funn(){
+	var num=$("#donationNum").val();
+	var userName= localStorage.getItem('userName');
+	var token= localStorage.getItem('token');
+	var haveNum;
+	
+	 $.post("",{userName:userName},function(data){
+			
+	 });
+	 
+	 if(haveNum<num){
+		 
+	 }else{
+		 
+	 }
+	
+}
+</script>
+</html>
