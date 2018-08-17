@@ -1,0 +1,51 @@
+package com.test.util;
+
+import java.util.Set;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.test.entity.Users;
+import com.test.service.UpdateIntegralService;
+
+import redis.clients.jedis.Jedis;
+
+/**
+ * Quartz定时器定时触发增加对用新闻的点击量
+ * @author 厉昀键
+ * Created on 2018年7月17日
+ * 类说明
+ *
+ */
+public class QuartzJob {
+	
+	@Autowired
+	UpdateIntegralService updateIntegralService;
+	
+	Users users = new Users();
+
+	Jedis jedis = RedisUtils.getJedis();
+	
+	private Logger logger = Logger.getLogger(QuartzJob.class);
+	
+	public void work(){
+		Set<byte[]> keySet = jedis.keys("*".getBytes());
+	    byte[][] keys = keySet.toArray(new byte[keySet.size()][]);
+	    for (byte[] bs : keys) {
+	    		String s = new String(bs);
+	    		System.out.println("------"+ s +"-----");
+	    		int userId = Integer.parseInt(s);
+	    		String fromRedis = jedis.get(s);
+	    		String[] as = fromRedis.split(",");//将从redis中获取的字符串拆分为积分和时间
+	    		String integralStr = as[0];//用户积分
+	   		String updateTime = as[1];//时间
+	   		int integralInt = Integer.parseInt(integralStr);
+	    		logger.info("用户ID为:" + userId + ",用户积分:" + integralInt + "," + "时间:" + updateTime);
+	    		users.setId(userId);
+	    		users.setUserIntegral(integralInt);
+	    		int returnInt = updateIntegralService.updateIntegral(users);
+	    		logger.info("受影响的行数有:" + returnInt + "条!");
+		}
+	}
+	
+}

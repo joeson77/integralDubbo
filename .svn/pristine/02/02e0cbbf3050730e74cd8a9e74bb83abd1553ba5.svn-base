@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.dao.UpdateIntegralMapper">
+  <resultMap id="StudentResult" type="com.test.entity.Users">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="userName" jdbcType="VARCHAR" property="userName" />
+    <result column="userPwd" jdbcType="VARCHAR" property="userPwd" />
+    <result column="userTel" jdbcType="VARCHAR" property="userTel" />
+    <result column="userIntegral" jdbcType="VARCHAR" property="userIntegral" />
+    <result column="ex1" jdbcType="VARCHAR" property="ex1" />
+    <result column="ex2" jdbcType="VARCHAR" property="ex2" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, sname, gender, birthday, telephone, email, classid
+  </sql>
+  <update id="updateUserIntegral" parameterType="com.test.entity.Users" >
+    update users
+    set userIntegral = #{userIntegral,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
