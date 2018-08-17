@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.dao.UpdateUserMapper">
+  <update id="updateUserIntegral" parameterType="com.demo.entity.Users" >
+    update users
+    set userIntegral = #{userIntegral,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectAllUsers" resultType="com.demo.entity.Users">
+  	select id,userName,userPwd,userTel,userIntegral,userState,ex1,ex2
+  	from users
+  </select>
+  
+  <update id="updateUserState" parameterType="com.demo.entity.Users" >
+    update users
+    set userState = #{userState,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectUserInfoById" resultType="com.demo.entity.Users">
+  	select id,userName,userPwd,userTel,userIntegral,userState,ex1,ex2
+  	from users where id = #{0}
+  </select>
+  
+  <update id="updateUserInfo" parameterType="com.demo.entity.Users" >
+    update users
+    set 
+    userName = #{userName,jdbcType=VARCHAR},
+    userPwd = #{userPwd,jdbcType=VARCHAR},
+    userTel = #{userTel,jdbcType=VARCHAR},
+    userIntegral = #{userIntegral,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <delete id="deleteUserById">
+  	delete from users where id = #{0}
+  </delete>
+  
+  <select id="selectAllRecord" parameterType="com.demo.entity.Integral" resultType="com.demo.entity.Integral">
+  	select id,userName,updateTime,integral,ex1,ex2,ex3
+  	from integral where 1 = 1
+  	<if test="userName!=null">
+       and userName=#{userName}
+    </if>
+    <if test="updateTime!=null">
+       and updateTime like #{updateTime}"%"
+    </if>
+  </select>
+  
+  <select id="selectAllActive" resultType="com.demo.entity.PublicBenefit">
+  	select activeId,activeName,startTime,endTime,activeType,activeNeedIntegral,havingIntegral,activeStatus,ex1,ex2,ex3
+  	from publicBenefit
+  </select>
+  
+  <update id="shutDownActive">
+  	update publicBenefit set activeStatus = 1 where activeId = #{0}
+  </update>
+  
+  <update id="startActive">
+  	update publicBenefit set activeStatus = 0 where activeId = #{0}
+  </update>
+  
+  <insert id="createActive" parameterType="com.demo.entity.PublicBenefit">
+  	insert into publicBenefit 
+  	(activeName,startTime,endTime,activeType,activeNeedIntegral,activeStatus,havingIntegral,ex1,ex2)
+  	values
+  	(#{activeName},#{startTime},#{endTime},#{activeType},#{activeNeedIntegral},1,0,#{ex1},#{ex2})
+  </insert>
+  
+  <select id="selectAllDonation" resultType="com.demo.entity.Donation">
+  	select id, username,title,type,apply_time,credit_time,img_url,status,description,ex1,ex2,ex3 from donation
+  </select>
+  
+  <update id="passApply">
+  	update donation set status = 1,credit_time = #{1} where id = #{0}
+  </update>
+  
+  <update id="refuseApply">
+  	update donation set status = 2,credit_time = #{1} where id = #{0}
+  </update>
+</mapper>

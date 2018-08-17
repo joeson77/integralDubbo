@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.dao.NewsMapper">
+  <resultMap id="BaseResultMap" type="com.demo.entity.News">
+    <id column="PRIMARY_ID" jdbcType="OTHER" property="PRIMARY_ID" />
+    <result column="TITLE" jdbcType="OTHER" property="TITLE" />
+    <result column="UPDATE_TIME" jdbcType="DATE" property="UPDATE_TIME" />
+    <result column="EX1" jdbcType="OTHER" property="EX1" />
+    <result column="EX2" jdbcType="OTHER" property="EX2" />
+    <result column="EX3" jdbcType="OTHER" property="EX3" />
+  </resultMap>
+  <insert id="insertSelective" parameterType="com.demo.entity.News">
+    insert into NEWS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="PRIMARY_ID != null">
+        PRIMARY_ID,
+      </if>
+      <if test="TITLE != null">
+        TITLE,
+      </if>
+      <if test="UPDATE_TIME != null">
+        UPDATE_TIME,
+      </if>
+      <if test="EX1 != null">
+        EX1,
+      </if>
+      <if test="EX2 != null">
+        EX2,
+      </if>
+      <if test="EX3 != null">
+        EX3,
+      </if>
+      <if test="CONTENT != null">
+        CONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="PRIMARY_ID != null">
+        #{PRIMARY_ID,jdbcType=OTHER},
+      </if>
+      <if test="TITLE != null">
+        #{TITLE,jdbcType=OTHER},
+      </if>
+      <if test="UPDATE_TIME != null">
+        #{UPDATE_TIME,jdbcType=DATE},
+      </if>
+      <if test="EX1 != null">
+        #{EX1,jdbcType=OTHER},
+      </if>
+      <if test="EX2 != null">
+        #{EX2,jdbcType=OTHER},
+      </if>
+      <if test="EX3 != null">
+        #{EX3,jdbcType=OTHER},
+      </if>
+      <if test="CONTENT != null">
+        #{CONTENT,jdbcType=CLOB},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.demo.entity.News">
+    update NEWS
+    <set>
+      <if test="TITLE != null">
+        TITLE = #{TITLE,jdbcType=OTHER},
+      </if>
+      <if test="UPDATE_TIME != null">
+        UPDATE_TIME = #{UPDATE_TIME,jdbcType=DATE},
+      </if>
+      <if test="EX1 != null">
+        EX1 = #{EX1,jdbcType=OTHER},
+      </if>
+      <if test="EX2 != null">
+        EX2 = #{EX2,jdbcType=OTHER},
+      </if>
+      <if test="EX3 != null">
+        EX3 = #{EX3,jdbcType=OTHER},
+      </if>
+      <if test="CONTENT != null">
+        CONTENT = #{CONTENT,jdbcType=CLOB},
+      </if>
+    </set>
+    where PRIMARY_ID = #{PRIMARY_ID,jdbcType=OTHER}
+  </update>
+  
+  <select id="selectAllNewsByType" resultType="com.demo.entity.News">
+  	select 
+  	NEWS_ID primaryId,NEWS_TITLE title,to_char(UPDATE_TIME,'YYYY-MM-DD HH24:mi:ss') updateTime,
+  	NEWS_NAME newsName,news_type ex2, news_clickrate ex3
+  	from news
+  </select>
+  
+  <select id="selectNewsByPrimary" resultType="com.demo.entity.News">
+  	select NEWS_ID primaryId,NEWS_TITLE title,to_char(UPDATE_TIME,'YYYY-MM-DD HH24:mi:ss') updateTime,
+  	NEWS_NAME newsName,NEWS_ARTICLE content,news_type ex2, news_clickrate ex3 from news where NEWS_ID = #{0}
+  </select>
+  
+  <update id="updateNews">
+  	update news set news_title = #{1}, NEWS_ARTICLE = #{2},NEWS_TYPE = #{3},news_clickrate = #{4}
+	where news_id = #{0}
+  </update>
+  
+  <delete id="deleteNewsByPrimaryId">
+  	delete from news where NEWS_ID = #{0}
+  </delete>
+  
+</mapper>

@@ -1,0 +1,33 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<title>一个组后台管理系统</title>
+<meta charset="UTF-8">
+<title>后台登录</title>
+<link href='css/login.css' rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="container">
+	<div id="main">
+		<div id="title"><span id="spa">登录</span></div>
+		<div id="content">
+			<div id="userNameContainer">
+				<input id="userName"  type="text" placeholder="请输入用户名"/>
+			</div>
+			<div id="userPwdContainer">
+				<input id="userPwd" type="text" placeholder="请输入密码"/>
+			</div>
+			<div id="userCodeContainer">
+				<input id="userCode" type="text" placeholder="请输入验证码"/>
+				<div id="codeImgContainer"></div>
+			</div>
+			<div id="loginBtnContainer">
+				<button id="loginBtn">登录</button>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

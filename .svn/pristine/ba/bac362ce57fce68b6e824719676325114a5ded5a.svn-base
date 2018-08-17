@@ -1,0 +1,20 @@
+
+
+# jdbc
+jdbc.driver=com.mysql.jdbc.Driver
+jdbc.url=jdbc:mysql://192.168.137.11:3306/dbb?useUnicode=true&characterEncoding=utf-8
+jdbc.username=root
+jdbc.password=root
+#dbcp 
+initialSize=0   
+maxActive=10  
+maxIdle=10   
+minIdle=1  
+maxWait=60000 
+
+#mybatis generator
+drive.class.path=/Users/liyunjian/Users/liyunjian/Downloads/eclipseProcedure/newsDisplay/ojdbc14.jar
+model.package=com.demo.entity
+dao.package=com.demo.dao
+xml.mapper.package=com.demo.mapper
+target.project=newsDisplay

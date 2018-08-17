@@ -1,0 +1,58 @@
+#container{
+	width:100%;
+	height:470px;
+	padding-top:100px;
+}
+#main{
+	width:30%;
+	margin:0 auto;
+	height:350px;
+	border:1px solid green;
+}
+#title{
+	width:80%;
+	height:70px;
+	line-height:70px;
+	margin:0 auto;
+	text-align:center;
+	border-bottom:2px solid green;
+}
+#spa{
+	font-size:30px;
+	
+}
+#content{
+	width:80%;
+	height:250px;
+	margin:0 auto;
+	margin-top:20px;
+}
+#userNameContainer,#userPwdContainer,#userCodeContainer,#loginBtnContainer{
+	width:100%;
+	height:25%;
+}
+#userName,#userPwd{
+	width:100%;
+	height:60%;
+	border:1px solid #999;
+}
+#userCode{
+	width:60%;
+	height:60%;
+	float:left;
+	border:1px solid #999;
+}
+#codeImgContainer{
+	width:35%;
+	height:60%;
+	float:right;
+	background:green;
+}
+#loginBtn{
+	width:100%;
+	height:60%;
+	background:green;
+	border:none;
+	color:white;
+	font-size:16px;
+}

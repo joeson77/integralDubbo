@@ -1,0 +1,47 @@
+package com.demo.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.demo.dao.UpdateUserMapper;
+import com.demo.entity.Integral;
+import com.demo.entity.PublicBenefit;
+import com.demo.entity.Users;
+
+@Service
+public class UpdateUserServiceImpl implements UpdateUserService {
+	
+	@Autowired
+	UpdateUserMapper updateUserDao;
+	
+	public List<Users> selectAllUsers() {
+		return updateUserDao.selectAllUsers();
+	}
+
+	public int updateUserState(Users users) {
+		return updateUserDao.updateUserState(users);
+	}
+
+	public Users selectUserInfoById(int id) {
+		return updateUserDao.selectUserInfoById(id);
+	}
+
+	public int updateUserInfo(Users users) {
+		return updateUserDao.updateUserInfo(users);
+	}
+
+	public int deleteUserById(int id) {
+		return updateUserDao.deleteUserById(id);
+	}
+
+	public List<Integral> selectAllRecord(Integral integral) {
+		return updateUserDao.selectAllRecord(integral);
+	}
+
+	public List<PublicBenefit> selectAllActive() {
+		return updateUserDao.selectAllActive();
+	}
+
+}

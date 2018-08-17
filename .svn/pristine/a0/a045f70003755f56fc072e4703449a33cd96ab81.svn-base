@@ -1,0 +1,201 @@
+package com.demo.controller;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.demo.entity.Integral;
+import com.demo.entity.PublicBenefit;
+import com.demo.entity.Users;
+import com.demo.service.UpdateUserService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+
+@Controller
+public class AdminController {
+	
+	@Autowired
+	UpdateUserService updateUserService;
+	
+	Users users = new Users();
+	
+	private Logger logger = Logger.getLogger(AdminController.class);
+	
+	/**
+	 * 打开后台管理系统首页
+	 * @return
+	 */
+	@RequestMapping("indexIntegral")
+	public String showIndex(){
+		return "index";
+	}
+	
+	/**
+	 * 打开用户后台管理首页
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("adminIndexUser")
+	public String showAllUses(Model model,HttpServletRequest request){
+		int page;
+		if (request.getParameter("pageNum") != null) {
+			page = Integer.parseInt(request.getParameter("pageNum"));
+		} else {
+			page = 1;
+		}
+		PageHelper.startPage(page,2);
+		List<Users> userList = updateUserService.selectAllUsers();
+	    PageInfo<Users> p=new PageInfo<Users>(userList);
+		model.addAttribute("userList", userList);
+		model.addAttribute("pagehelper",p);
+		return "indexUser";
+	}
+	
+	/**
+	 * 更改用户账号状态
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("updateUserState")
+	public boolean updateUserState(HttpServletRequest request){
+		String userIdStr = request.getParameter("userId");
+		String updateUserStateStr = request.getParameter("updateUserState");
+		int userIdInt = Integer.parseInt(userIdStr);
+		int updateUserStateInt = Integer.parseInt(updateUserStateStr);
+		logger.info("获取到的 userId = " + userIdInt);
+		logger.info("获取到的 updateUserState = " + updateUserStateInt);
+		users.setId(userIdInt);
+		users.setUserState(updateUserStateInt);
+		int flag = updateUserService.updateUserState(users);
+		if (flag == 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	/**
+	 * 根据主键查询用户信息
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("selectUserInfoById")
+	public Users selectUserInfoById(HttpServletRequest request){
+		String idStr = request.getParameter("userId");
+		int idInt = Integer.parseInt(idStr);
+		Users userInfo = updateUserService.selectUserInfoById(idInt);
+		return userInfo;
+	}
+	
+	/**
+	 * 主键修改用户信息
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("updateUserInfo")
+	public boolean updateUserInfo(HttpServletRequest request){
+		String userIdStr = request.getParameter("retUserId");
+		String userName = request.getParameter("retUserName");
+		String userPwd = request.getParameter("retUserPwd");
+		String userTel = request.getParameter("retUserTel");
+		String userIntegralStr = request.getParameter("retUserIntegral");
+		int userIdInt = Integer.parseInt(userIdStr);
+		int userIntegralInt = Integer.parseInt(userIntegralStr);
+		logger.info("获取到的 userIdInt = " + userIdInt);
+		logger.info("获取到的 userName = " + userName);
+		logger.info("获取到的 userPwd = " + userPwd);
+		logger.info("获取到的 userTel = " + userTel);
+		logger.info("获取到的 userIntegralInt = " + userIntegralInt);
+		users.setId(userIdInt);
+		users.setUserName(userName);
+		users.setUserPwd(userPwd);
+		users.setUserTel(userTel);
+		users.setUserIntegral(userIntegralInt);
+		int returnFlag = updateUserService.updateUserInfo(users);
+		if (returnFlag == 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	/**
+	 * 根据主键删除用户
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("deleteUserById")
+	public boolean deleteUserById(HttpServletRequest request){
+		String userIdStr = request.getParameter("userId");
+		int userIdInt = Integer.parseInt(userIdStr);
+		logger.info("获取到的 userIdInt = " + userIdInt);
+		int returnFlag = updateUserService.deleteUserById(userIdInt);
+		if (returnFlag == 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	@RequestMapping("adminIndexRecord")
+	public String showAllRecord(Model model,HttpServletRequest request){
+		Integral integral = new Integral();
+		String userName = request.getParameter("userNameInput");
+		String updateTime = request.getParameter("updateTimeInput");
+		logger.info("前端传递的 userName = " + userName);
+		logger.info("前端传递的 updateTime = " + updateTime);
+		if (userName != null && userName.length() != 0 && updateTime.length() == 0) {
+			logger.info("这里是userName不为空，updateTime为空的条件！");
+			integral.setUserName(userName);
+		} else if(updateTime != null && updateTime.length() != 0 && userName.length() == 0) {
+			logger.info("这里是updateTime不为空，userName为空的条件！");
+			integral.setUpdateTime(updateTime);
+		} else if (userName != null && userName.length() !=0 && updateTime.length() !=0 && updateTime != null) {
+			logger.info("这里是updateTime不为空，userName不为空的条件！");
+			integral.setUserName(userName);
+			integral.setUpdateTime(updateTime);
+		}
+		int page;
+		if (request.getParameter("pageNum") != null) {
+			page = Integer.parseInt(request.getParameter("pageNum"));
+		} else {
+			page = 1;
+		}
+		PageHelper.startPage(page,2);
+		List<Integral> recordList = updateUserService.selectAllRecord(integral);
+	    PageInfo<Integral> p=new PageInfo<Integral>(recordList);
+		model.addAttribute("recordList", recordList);
+		model.addAttribute("pagehelper",p);
+		model.addAttribute("userNameReturn",userName);
+		model.addAttribute("updateTimeReturn",updateTime);
+		return "indexRecord";
+	}
+	
+	@RequestMapping("adminIndexPublicBenefit")
+	public String indexBenefit(HttpServletRequest request,Model model){
+		int page;
+		if (request.getParameter("pageNum") != null) {
+			page = Integer.parseInt(request.getParameter("pageNum"));
+		} else {
+			page = 1;
+		}
+		PageHelper.startPage(page,2);
+		List<PublicBenefit> activeList = updateUserService.selectAllActive();
+		PageInfo<PublicBenefit> p=new PageInfo<PublicBenefit>(activeList);
+		model.addAttribute("activeList", activeList);
+		model.addAttribute("pagehelper",p);
+		return "indexPublic";
+	}
+	
+}
