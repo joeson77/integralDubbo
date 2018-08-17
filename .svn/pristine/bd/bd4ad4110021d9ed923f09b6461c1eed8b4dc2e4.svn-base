@@ -1,0 +1,9 @@
+package com.test.service;
+
+import com.test.entity.Users;
+
+public interface UpdateIntegral {
+	
+	public int updateTime(Users users);
+	
+}

@@ -1,0 +1,10 @@
+package com.test.service;
+
+import com.test.entity.Integral;
+import com.test.entity.Users;
+
+public interface SelectIntegral {
+
+	public Integral selectIntegral(Users users);
+	
+}

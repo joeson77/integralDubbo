@@ -1,0 +1,13 @@
+package com.test.service;
+
+import java.util.List;
+
+import com.test.entity.Student;
+
+public interface TestService {
+	
+	public String test();
+	
+	public List<Student> listStudent();
+	
+}

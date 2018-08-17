@@ -1,0 +1,13 @@
+package com.test.service;
+/**
+ * 用户查询明细接口
+ * */
+import java.util.List;
+import javax.xml.ws.ServiceMode;
+import com.test.entity.Integral;
+import com.test.entity.Users;
+public interface SelectRecordService {
+
+	public List<Integral> selectRecord(Users users);
+	
+}

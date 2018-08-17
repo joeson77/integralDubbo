@@ -1,0 +1,64 @@
+package com.test.entity;
+/**
+ * 新闻实体类
+ * @author Xiao
+ * */
+import java.util.Date;
+public class News {
+	
+	//属性
+	private int newId;
+	private String newsTitle;
+	private String newContext;
+	private Date newsUpdateTime;
+	private String newsName;
+	
+	//构造器
+	public News() {
+		
+	}
+
+	//JavaBean
+	public int getNewId() {
+		return newId;
+	}
+
+	public void setNewId(int newId) {
+		this.newId = newId;
+	}
+
+	public String getNewsTitle() {
+		return newsTitle;
+	}
+
+	public void setNewsTitle(String newsTitle) {
+		this.newsTitle = newsTitle;
+	}
+
+	public String getNewContext() {
+		return newContext;
+	}
+
+	public void setNewContext(String newContext) {
+		this.newContext = newContext;
+	}
+
+	public Date getNewsUpdateTime() {
+		return newsUpdateTime;
+	}
+
+	public void setNewsUpdateTime(Date newsUpdateTime) {
+		this.newsUpdateTime = newsUpdateTime;
+	}
+
+	public String getNewsName() {
+		return newsName;
+	}
+
+	public void setNewsName(String newsName) {
+		this.newsName = newsName;
+	}
+	
+	
+	
+}

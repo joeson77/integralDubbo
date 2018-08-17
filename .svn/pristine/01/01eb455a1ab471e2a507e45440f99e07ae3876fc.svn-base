@@ -1,0 +1,9 @@
+package com.test.service;
+
+import com.test.entity.Integral;
+
+public interface UpdateIntegral {
+	
+	public int updateIntegral(Integral integral);
+	
+}

@@ -1,0 +1,19 @@
+package com.test.service;
+
+import java.util.HashMap;
+import java.util.List;
+
+import com.test.entity.News;
+
+public interface NewsService {
+	
+	public List<News> selectAllNewsByType();
+	
+	public List<News> selectNewsIndex();
+	
+	public List<News> selectNewsByType(String type);
+	
+	public void updateNewsClickRate(String id,int clickrate);
+	
+	public HashMap<String, Object> selectNewsByPages(int pre,int total,String type);
+}
